@@ -1,0 +1,39 @@
+{% extends "_layout.html" %}
+{% block content %}
+  <style>
+    .btn.btn-warning.active {
+      color: #fff;
+      background-color: #5cb85c;
+      border-color: #5cb85c;
+    }
+  </style>
+	<div class="container">
+    <form method="post" action="{{ url_for("save") }}">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nimi</th>
+            <th scope="col">Kohal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for name in names %}
+            <tr>
+              <th scope="row">{{ names.index(name) + 1 }}</th>
+              <th>{{ name }}</th>
+              <th>
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-warning">
+                    <input type="checkbox" name="{{ names.index(name) }}"> Olen kohal!
+                  </label>
+                </div>
+              </th>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <input class="btn btn-success" type="submit" value="Salvesta raport">
+    </form>
+	</div>
+{% endblock %}
