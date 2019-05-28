@@ -5,23 +5,21 @@ import src.app.backend as backend
 
 
 app = Flask(__name__)
-NAMES = 0
 
 
 @app.route('/', methods=['GET'])
 def home():
-    global NAMES
     names = backend.read_names()
-    NAMES = len(names)
     return render_template('home.html', names=names)
 
 
 @app.route('/save', methods=['POST'])
 def save():
     attending = request.form.to_dict().keys()
+    names = backend.read_names()
     attendance = [
         1 if str(person) in attending else 0
-        for person in range(NAMES)]
+        for person in range(len(names))]
     backend.update_attendance(attendance)
     return ('', 204)
 
